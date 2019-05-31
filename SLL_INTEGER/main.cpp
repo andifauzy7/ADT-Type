@@ -5,7 +5,7 @@ void delete_node(address *p);
 void search_node(address p);
 
 int main(){
-    address First, Second;
+    address First;
     Create_Node(&First);
     char nilai;
     int pilihan;
