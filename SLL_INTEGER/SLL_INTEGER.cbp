@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="ADT_SLL_INT.cpp" />
+		<Unit filename="ADT_SLL_INT.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

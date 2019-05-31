@@ -2,12 +2,44 @@
 int menu();
 
 int main(){
-
-    // Membuat Pointer Kepala / Head / First dst.
     address First;
     Create_Node(&First);
+    char nilai;
+    for(;;){
+        switch(menu()){
+            case 1:{
+            // Insert Node.
+            printf("%d",isEmpty(First));
+            }
+            case 2:{
 
-    menu();
+                break;
+            }
+            case 3:{
+
+                break;
+            }
+            case 4:{
+
+                break;
+            }
+            case 5:{
+
+                break;
+            }
+            case 6:{
+
+                break;
+            }
+            default:{
+                printf("\n\tLakukan Input yang sesuai.");
+                break;
+            }
+        }
+        printf("\n\t");
+        system("pause");
+        system("cls");
+    }
     return 0;
 }
 
@@ -24,7 +56,8 @@ int menu(){
     printf("\n\t4. Cari Node");
     printf("\n\t5. Balik List");
     printf("\n\t6. Keluar");
-    printf("\n\n\tPilihan = "); scanf(" %d",&pilihan);
+    printf("\n\n\tPilihan = ");
+    scanf(" %d",&pilihan);
     if(pilihan<=0 || pilihan>6){
         printf("\n\tLakukan Input yang sesuai.\n\t");
         system("pause");
