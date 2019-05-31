@@ -89,32 +89,32 @@ void Del_Awal (address * p, infotype * X){
 /* FS : Elemen pertama List dihapus, nilai info disimpan ke X */
     address bantu;
     bantu=*p;
-    *p=bantu->next;
-    *X=bantu->info;
-    free(bantu);
+    if(bantu->next!=NULL){
+        *p=bantu->next;
+        *X=bantu->info;
+        free(bantu);
+        printf("\n\tDELETE NODE SUKSES!");
+    } else {
+        printf("\n\tNode hanya 1, Tambah Node Terlebih Dahulu");
+    }
 }
 
 void Del_Akhir (address * p, infotype * X){
 /* IS : P TIDAK Kosong */
 /* FS : Elemen terakhir list dihapus : nilai info disimpan pada X */
-    address bantu;
-    address bantu2;
-    int i=1;
+    address bantu,bantu2;
     bantu=*p;
-    while(bantu->next!=NULL){
-        bantu=bantu->next;
-        i++;
+    if(bantu->next!=NULL){
+        while(bantu->next->next!=NULL){
+            bantu=bantu->next;
+        }
+        bantu2=bantu->next;
+        bantu->next=NULL;
+        free(bantu2);
+        printf("\n\tDELETE NODE SUKSES!");
+    } else {
+        printf("\n\tNode hanya 1, Tambah Node Terlebih Dahulu");
     }
-    bantu=*p;
-    int n=1;
-    while(n<=i-2 && bantu->next!=NULL){
-        bantu=bantu->next;
-        n++;
-    }
-    bantu2=bantu;
-    bantu2->next=NULL;
-    *X=bantu->info;
-    free(bantu);
 }
 
 void Del_After (address * pBef, infotype * X){
@@ -123,11 +123,17 @@ void Del_After (address * pBef, infotype * X){
 /* nilai info node yang dihapus disimpan pada X */
     address bantu;
     bantu=*pBef;
-    *pBef=bantu->next;
-    *X=bantu->next->info;
-    bantu->next=bantu->next->next;
-    pBef=NULL;
-    free(pBef);
+    if(bantu->next!=NULL){
+        *pBef=bantu->next;
+        *X=bantu->next->info;
+        bantu->next=bantu->next->next;
+        pBef=NULL;
+        free(pBef);
+        printf("\n\tDELETE NODE SUKSES!");
+    } else {
+        printf("\n\tTidak Memiliki Node Setelahnya!");
+    }
+
 }
 
 void DeAlokasi (address * p){
@@ -148,16 +154,13 @@ return 1 + NbElmt(p->next);
 address BalikList (address p){
 /* IS : p sembarang */
 /* FS : Elemen List dibalik : elemen terakhir menjadi elemen pertama, dst */
-    address q, sebelum, sesudah;
-    sebelum=NULL;
-    sesudah=NULL;
-    q=p;
-    while(q!=NULL){
-        sesudah=q->next;
-        q->next=sebelum;
-        sebelum=q;
-        q=sesudah;
+    address awal_head, geser, patokan;
+    awal_head=p;
+    if(awal_head->next!=NULL){
+
+    } else {
+        printf("\n\tHanya Memiliki 1 Node (Tidak Bisa Dibalik)");
+        return 0;
     }
-    p=sebelum;
-    return p;
 }
+

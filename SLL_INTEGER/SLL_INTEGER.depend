@@ -1,11 +1,13 @@
 # depslib dependency file v1.0
-1559274928 source:d:\adt_type\sll_integer\adt_sll_int.cpp
+1559297397 source:d:\adt_type\sll_integer\adt_sll_int.cpp
 	"ADT_SLL_INT.h"
 
-1559274774 d:\adt_type\sll_integer\adt_sll_int.h
+1559289677 d:\adt_type\sll_integer\adt_sll_int.h
 	<stdio.h>
 	<malloc.h>
 
-1559280595 source:d:\adt_type\sll_integer\main.cpp
+1559297254 source:d:\adt_type\sll_integer\main.cpp
 	"ADT_SLL_INT.h"
+
+1540955430 d:\adt_type\sll_integer\boolean.h
 
