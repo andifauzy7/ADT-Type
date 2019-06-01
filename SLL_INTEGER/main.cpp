@@ -34,7 +34,7 @@ int main(){
             }
             case 5:{
                 // Balik List.
-                BalikList(First);
+                First=BalikList(First);
                 break;
             }
             case 6:{

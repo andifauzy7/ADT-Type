@@ -154,10 +154,19 @@ return 1 + NbElmt(p->next);
 address BalikList (address p){
 /* IS : p sembarang */
 /* FS : Elemen List dibalik : elemen terakhir menjadi elemen pertama, dst */
-    address awal_head, geser, patokan;
+    address awal_head, head2, isi;
     awal_head=p;
     if(awal_head->next!=NULL){
-
+        Create_Node(&head2);
+        Isi_Node(&head2,awal_head->info);
+        while(awal_head->next!=NULL){
+            awal_head=awal_head->next;
+            Create_Node(&isi);
+            Isi_Node(&isi,awal_head->info);
+            Ins_Awal(&head2,isi);
+        }
+        printf("\n\tBALIK LIST BERHASIL!");
+        return head2;
     } else {
         printf("\n\tHanya Memiliki 1 Node (Tidak Bisa Dibalik)");
         return 0;
