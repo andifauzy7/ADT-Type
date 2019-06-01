@@ -1,9 +1,9 @@
-/* File          : ADT_SLL_INT.cpp */
-/* Deskripsi     : ADT linked list dengan representasi fisik pointer (Dinamis) InfoType adalah Integer */
+/* File          : ADT_SLL_CHAR.cpp */
+/* Deskripsi     : ADT linked list dengan representasi fisik pointer (Dinamis) InfoType adalah Karakter */
 /* Dibuat oleh   : Ade Chandra N. (Dosen JTK Polban) */
 /* Modified oleh : Andi Fauzy D. JTK'18 */
 
-#include "ADT_SLL_INT.h"
+#include "ADT_SLL_CHAR.h"
 
 boolean isEmpty(address p){
 // Tujuan : memeriksa apakah linked masih kosong
@@ -30,10 +30,10 @@ void Isi_Node (address *p , infotype nilai){
 void Tampil_List (address p){
 // Tujuan : Menampilkan seluruh isi Linked List
      while(p->next != NULL) {
-          printf("%d ", p->info);
+          printf("%c ", p->info);
           p = p->next;
      }
-    printf("%d", p->info);
+    printf("%c", p->info);
 }
 
 void Ins_Awal (address *p, address PNew){

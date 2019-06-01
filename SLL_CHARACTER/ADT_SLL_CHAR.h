@@ -1,10 +1,10 @@
-/* File          : ADT_SLL_INT.cpp */
-/* Deskripsi     : ADT linked list dengan representasi fisik pointer (Dinamis) InfoType adalah Integer */
+/* File          : ADT_SLL_CHAR.cpp */
+/* Deskripsi     : ADT linked list dengan representasi fisik pointer (Dinamis) InfoType adalah Karakter */
 /* Dibuat oleh   : Ade Chandra N. (Dosen JTK Polban) */
 /* Modified oleh : Andi Fauzy D. JTK'18 */
 
-#ifndef ADT_SLL_INT_H
-#define ADT_SLL_INT_H
+#ifndef ADT_SLL_CHAR_H
+#define ADT_SLL_CHAR_H
 
 // Header yang dibutuhkan.
 #include <stdio.h>
@@ -16,7 +16,7 @@
 #define boolean unsigned char
 
 // Kamus Data.
-typedef int infotype;
+typedef char infotype;
 typedef struct tElmtList *address;
 typedef struct tElmtList {
  infotype info;

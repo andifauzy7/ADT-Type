@@ -1,5 +1,4 @@
-#include "ADT_SLL_INT.h"
-
+#include "ADT_SLL_CHAR.h"
 int menu();
 void insert_node(address *p);
 void delete_node(address *p);
@@ -63,7 +62,7 @@ int main(){
 int menu(){
     int pilihan;
     awal:
-    printf("\n\tADT - Single Linked List Tipe Integer");
+    printf("\n\tADT - Single Linked List Tipe Karakter");
     printf("\n\tMenggunakan Alokasi Dinamis (Menyesuaikan Kebutuhan).");
     printf("\n\t1. Insert Node");
     // Terdapat Insert awal, akhir, dan after.
@@ -91,7 +90,7 @@ void insert_node(address *p){
     address Second;
     if((*p)->next==NULL && (*p)->info==NULL){
         printf("\n\tMasukkan Nilai Node : ");
-        scanf(" %d",&nilai);
+        scanf(" %c",&nilai);
         Isi_Node(&(*p),nilai);
         printf("\n\tINSERT NODE SUKSES!");
     } else {
@@ -103,7 +102,7 @@ void insert_node(address *p){
         scanf(" %d",&pilihan);
         printf("\n\tMasukkan Nilai Node : ");
         Create_Node(&Second);
-        scanf(" %d",&nilai);
+        scanf(" %c",&nilai);
         Isi_Node(&Second,nilai);
         switch(pilihan){
             case 1:{
@@ -156,7 +155,7 @@ void delete_node(address *p){
             }
             case 2:{
                 printf("\n\tDelete setelah Node : ");
-                scanf(" %d",&deleteafter);
+                scanf(" %c",&deleteafter);
                 cari=Search((*p),deleteafter);
                 if(cari!=NULL){
                     Del_After(&cari,&X);
@@ -180,7 +179,7 @@ void delete_node(address *p){
 void search_node(address p){
     infotype cari;
     printf("\n\tNode yang ingin dicari : ");
-    scanf(" %d",&cari);
+    scanf(" %c",&cari);
     if(Search(p,cari)!=NULL){
         printf("\n\tNode Ditemukan!");
     } else {
