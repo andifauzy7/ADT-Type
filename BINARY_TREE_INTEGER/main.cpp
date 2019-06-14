@@ -8,6 +8,27 @@ int main(){
 	insert_node(&First,20);
 	insert_node(&First,15);
 	insert_node(&First,30);
+	insert_node(&First,18);
+	insert_node(&First,10);
+	insert_node(&First,17);
+	insert_node(&First,25);
+	insert_node(&First,40);
+	insert_node(&First,35);
+	insert_node(&First,50);
+	insert_node(&First,38);
+
+    printf("Post Order\t: ");
+	nbPost(First);
+	printf("\n");
+	printf("Pre Order\t: ");
+	nbPre(First);
+	printf("\n");
+	printf("In Order\t: ");
+	nbIn(First);
+	printf("\n");
+	printf("Lv Order\t: ");
+	print_level(First);
+	printf("\n\n");
 
 	nbCreate(&MyList);
 	nbInsert(&MyList,nbSearch(MyList.root,0),20);
