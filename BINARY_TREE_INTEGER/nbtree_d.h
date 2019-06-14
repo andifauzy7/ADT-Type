@@ -23,16 +23,11 @@ struct nbTree{
 	nbAddr root;
 };
 
-
-
 /* ---------------- Alokasi node baru Tree ---------------- */
 void create_node(nbAddr *root);
-void nbCreate(nbTree *x);
-nbAddr nbCNode(nbType X);
 //Alokasi untuk membuat node baru
 
 /* ---------------- Operasi-operasi Tree ---------------- */
-void nbInsert(nbTree *tRoot, nbAddr parent, nbType X);
 void insert_node(nbAddr *root, nbType X);
 // Menambah element pada node parent
 

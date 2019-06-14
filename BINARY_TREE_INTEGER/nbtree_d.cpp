@@ -3,47 +3,11 @@
 #include "nbtree_d.h"
 #include "boolean.h"
 
-void nbCreate(nbTree *x){
-	(*x).root=NULL;
-}
-
-nbAddr nbCNode(nbType X){
-	nbAddr newNode;
-	newNode=(nbAddr) malloc(sizeof(ElmtTree));
-	if (newNode != NULL){
-		newNode->left=NULL;
-		newNode->right=NULL;
-		newNode->info=X;
-	}
-	return newNode;
-}
-
 void create_node(nbAddr *root){
     (*root) =(nbAddr) malloc(sizeof(ElmtTree));
     (*root)->info=NULL;
     (*root)->left=NULL;
     (*root)->right=NULL;
-}
-
-void nbInsert(nbTree *tRoot, nbAddr parent, nbType X){
-
-	nbAddr newNode, temp;
-
-	newNode=nbCNode(X);
-	if (newNode !=NULL){
-		if (parent==NULL) //JIka belum terdapat root
-			tRoot->root=newNode;
-		else{
-			temp=parent;
-			if (temp->left == NULL){
-				temp->left=newNode;
-			}else if(temp->right == NULL){
-                temp->right=newNode;
-			} else {
-                printf("\n\tGagal! Kedua Node telah Terisi\n\t");
-			}
-		}
-	}
 }
 
 void insert_node(nbAddr *root, nbType X){
@@ -63,24 +27,21 @@ void insert_node(nbAddr *root, nbType X){
 }
 
 nbAddr nbSearch(nbAddr root, nbType src){
-	nbAddr nSrc;
 	if (root!=NULL){
 		if (root->info==src)
 			return root;
 		else{
-			nSrc=nbSearch(root->left,src);
-			if (nSrc==NULL)
-				return nbSearch(root->right,src);
-			else
-				return nSrc;
+		    (src > root->info) ? nbSearch(root->right,src) : nbSearch(root->left,src);
 		}
 	}
 	else{
 		return NULL;
 	}
 }
-/*
 
+
+
+/*
 void nbUpgrade(nbAddr *root){
 	nbAddr temp;
 	temp=(*root)->nb;
@@ -202,6 +163,7 @@ void delete_node(nbTree *pTree){
 }
 
 */
+
 int nbDepth(nbAddr root){
     if (root == NULL)
         return 0;
