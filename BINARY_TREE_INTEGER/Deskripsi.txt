@@ -1,0 +1,26 @@
+Program Binary Tree & AVL Tree.
+(1A - D3 Teknik Informatika 2018)
+
+Oleh :
+- Andi Fauzy Dewantara (181511007)
+- Fahmi Widianto (181511012)
+
+Deskripsi Program :
+1. Tree diisi dengan nilai yang terdapat dalam Script yang sudah ada dalam modul.
+
+2. Nilai ingin diinput akan dimasukkan ke dalam 2 root dengan metode yang berbeda. Pada root pertama, nilai diinputkan dengan metode BST. Sedangkan pada root kedua, ada penambahan fitur auto Balancing pada Tree.
+
+3. Setelah proses pengisian nilai ke dalam tree selesai, program akan menampilkan 2 root. Root pertama yaitu Tree yang belum dilakukan balancing, sedangkan root yang kedua telah dilakukan operasi balancing.
+
+*Ditampilkan dalam bentuk Traversal (Postorder, Preorder, Inorder dan Level Order).
+
+Referensi :
+1. GeeksforGeeks 
+Algoritma pengisian nilai ke dalam tree dengan Autobalancing secara rekursif.
+
+(+) dari Referensi.
+Hal yang dimodifikasi adalah perubahan struktur data. Kamus data dalam algoritma yang ada pada referensi tersebut berbeda dengan sebelumnya kami buat untuk metode BST. Sehingga kami melakukan modifikasi agar bisa dijalankan pada program kami.
+
+Proses input dilakukan hanya sekali, tetapi otomatis mengisi kedua Tree agar lebih efisien.
+
+Membuat beberapa modul baru untuk mempermudah Insert secara AVL. Agar modul AVL tidak terlalu panjang.
