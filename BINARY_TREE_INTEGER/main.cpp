@@ -1,33 +1,27 @@
 #include "nbtree_d.h"
 
+void insert_node_avl(nbAddr *root, nbAddr *original_root, int value){
+    (*root) = input_node((*root),value);
+    insert_node(&(*original_root),value);
+}
+
 int main(){
 
-	nbAddr First;
-	struct Node *First2 = NULL;
+	nbAddr First,pertama;
+	First=pertama=NULL;
 	create_node(&First);
 
-	insert_node(&First,20);
-	First2 = insert(First2, 20);
-	insert_node(&First,15);
-	First2 = insert(First2, 15);
-	insert_node(&First,30);
-	First2 = insert(First2, 30);
-	insert_node(&First,10);
-	First2 = insert(First2, 10);
-	insert_node(&First,18);
-	First2 = insert(First2, 18);
-	insert_node(&First,25);
-	First2 = insert(First2, 25);
-	insert_node(&First,40);
-	First2 = insert(First2, 40);
-	insert_node(&First,17);
-	First2 = insert(First2, 17);
-	insert_node(&First,35);
-	First2 = insert(First2, 35);
-	insert_node(&First,38);
-	First2 = insert(First2, 38);
-	insert_node(&First,50);
-	First2 = insert(First2, 50);
+	insert_node_avl(&pertama,&First,20);
+	insert_node_avl(&pertama,&First,15);
+	insert_node_avl(&pertama,&First,30);
+	insert_node_avl(&pertama,&First,10);
+	insert_node_avl(&pertama,&First,18);
+	insert_node_avl(&pertama,&First,25);
+	insert_node_avl(&pertama,&First,40);
+	insert_node_avl(&pertama,&First,17);
+	insert_node_avl(&pertama,&First,35);
+	insert_node_avl(&pertama,&First,38);
+	insert_node_avl(&pertama,&First,50);
 
 	printf("\nSebelum Dilakukan Balancing.\n");
     printf("Post Order\t: ");
@@ -44,20 +38,23 @@ int main(){
 	printf("\nDepth\t\t: "); printf("%d",nbDepth(First));
 	printf("\n\n");
 
-    printf("\nSesudah Dilakukan Balancing.\n");
+
+	printf("\nSesudah Dilakukan Balancing.\n");
     printf("Post Order\t: ");
-	postOrder(First2);
+	nbPost(pertama);
 	printf("\n");
 	printf("Pre Order\t: ");
-	preOrder(First2);
+	nbPre(pertama);
 	printf("\n");
 	printf("In Order\t: ");
-	inOrder(First2);
+	nbIn(pertama);
 	printf("\n");
 	printf("Lv Order\t: ");
-    print_level_avl(First2);
-    printf("\nDepth\t\t: "); printf("%d",Depth_balance(First2));
+	print_level(pertama);
+	printf("\nDepth\t\t: "); printf("%d",nbDepth(pertama));
 	printf("\n\n");
+
+
 
 	return 0;
 }
