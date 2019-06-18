@@ -1,9 +1,7 @@
 #include "nbtree_d.h"
 
-void insert_node_avl(nbAddr *root, nbAddr *original_root, int value){
-    (*root) = input_node((*root),value);
-    insert_node(&(*original_root),value);
-}
+void tampil(nbAddr root);
+void insert_node_avl(nbAddr *root, nbAddr *original_root, int value);
 
 int main(){
 
@@ -23,38 +21,35 @@ int main(){
 	insert_node_avl(&pertama,&First,38);
 	insert_node_avl(&pertama,&First,50);
 
-	printf("\nSebelum Dilakukan Balancing.\n");
-    printf("Post Order\t: ");
-	nbPost(First);
-	printf("\n");
-	printf("Pre Order\t: ");
-	nbPre(First);
-	printf("\n");
-	printf("In Order\t: ");
-	nbIn(First);
-	printf("\n");
-	printf("Lv Order\t: ");
-	print_level(First);
-	printf("\nDepth\t\t: "); printf("%d",nbDepth(First));
-	printf("\n\n");
+    tampil(First);
+    tampil(pertama);
 
-
-	printf("\nSesudah Dilakukan Balancing.\n");
-    printf("Post Order\t: ");
-	nbPost(pertama);
-	printf("\n");
-	printf("Pre Order\t: ");
-	nbPre(pertama);
-	printf("\n");
-	printf("In Order\t: ");
-	nbIn(pertama);
-	printf("\n");
-	printf("Lv Order\t: ");
-	print_level(pertama);
-	printf("\nDepth\t\t: "); printf("%d",nbDepth(pertama));
-	printf("\n\n");
+	Delete(First,40);
+	tampil(First);
 
 
 
 	return 0;
 }
+
+void tampil(nbAddr root){
+    printf("Post Order\t: ");
+	nbPost(root);
+	printf("\n");
+	printf("Pre Order\t: ");
+	nbPre(root);
+	printf("\n");
+	printf("In Order\t: ");
+	nbIn(root);
+	printf("\n");
+	printf("Lv Order\t: ");
+	print_level(root);
+	printf("\nDepth\t\t: "); printf("%d",nbDepth(root));
+	printf("\n\n");
+}
+
+void insert_node_avl(nbAddr *root, nbAddr *original_root, int value){
+    (*root) = input_node((*root),value);
+    insert_node(&(*original_root),value);
+}
+
