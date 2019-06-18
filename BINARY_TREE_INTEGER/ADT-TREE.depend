@@ -63,3 +63,14 @@
 1560848046 source:d:\adt_type\binary_tree_integer\main.cpp
 	"nbtree_d.h"
 
+1560848519 source:c:\users\user\documents\adt-type\binary_tree_integer\main.cpp
+	"nbtree_d.h"
+
+1560848519 c:\users\user\documents\adt-type\binary_tree_integer\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1560848441 c:\users\user\documents\adt-type\binary_tree_integer\boolean.h
+

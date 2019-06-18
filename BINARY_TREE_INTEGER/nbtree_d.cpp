@@ -3,6 +3,8 @@
 #include "nbtree_d.h"
 #include "boolean.h"
 
+bool c=false;
+
 void create_node(nbAddr *root){
     (*root) =(nbAddr) malloc(sizeof(ElmtTree));
     (*root)->info=NULL;
@@ -286,3 +288,53 @@ int Depth_balance(Node *root){
     }
 }
 
+nbAddr Delete(nbAddr root,int value)
+{
+	c=nbSearch(root,value);
+	if(root==NULL)
+		return root;
+	else if(value< root->info)
+	{
+		root->left= Delete(root->left,value);
+	}
+	else if(value> root->info)
+	{
+		root->right= Delete(root->right,value);
+	}
+
+	// Node deletion
+	else
+	{
+		//case 1: Leaf Node
+		if(root->left==NULL&&root->right==NULL)
+		{
+			delete root;
+			root=NULL;
+			return root;
+		}
+		//case 2: one child
+		else if(root->left==NULL)
+		{
+			struct nbTreeNode* temp=root;
+			root=root->right;
+			delete temp;
+			return root;
+		}
+		else if(root->right==NULL)
+		{
+			struct nbTreeNode* temp=root;
+			root=root->left;
+			delete temp;
+			return root;
+		}
+		//case 3: 2 child
+		else
+		{
+			struct nbTreeNode*temp=value_minimum(root->right);
+			root->info=temp->info;
+			root->right=Delete(root->right,temp->info);
+		}
+	}
+	return root;
+
+}
