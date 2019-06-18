@@ -1,22 +1,27 @@
 #include "nbtree_d.h"
 
+void insert_node_avl(nbAddr *root, nbAddr *original_root, int value){
+    (*root) = input_node((*root),value);
+    insert_node(&(*original_root),value);
+}
+
 int main(){
 
-	nbAddr First;
-	struct Node *First2 = NULL;
+	nbAddr First,pertama;
+	First=pertama=NULL;
 	create_node(&First);
 
-	insert_node(&First,20);
-	insert_node(&First,15);
-	insert_node(&First,30);
-	insert_node(&First,10);
-	insert_node(&First,18);
-	insert_node(&First,25);
-	insert_node(&First,40);
-	insert_node(&First,17);
-	insert_node(&First,35);
-	insert_node(&First,38);
-	insert_node(&First,50);
+	insert_node_avl(&pertama,&First,20);
+	insert_node_avl(&pertama,&First,15);
+	insert_node_avl(&pertama,&First,30);
+	insert_node_avl(&pertama,&First,10);
+	insert_node_avl(&pertama,&First,18);
+	insert_node_avl(&pertama,&First,25);
+	insert_node_avl(&pertama,&First,40);
+	insert_node_avl(&pertama,&First,17);
+	insert_node_avl(&pertama,&First,35);
+	insert_node_avl(&pertama,&First,38);
+	insert_node_avl(&pertama,&First,50);
 
 	printf("\nSebelum Dilakukan Balancing.\n");
     printf("Post Order\t: ");
@@ -33,18 +38,6 @@ int main(){
 	printf("\nDepth\t\t: "); printf("%d",nbDepth(First));
 	printf("\n\n");
 
-	nbAddr pertama=NULL;
-	pertama = input_node(pertama,20);
-	pertama = input_node(pertama,15);
-	pertama = input_node(pertama,30);
-	pertama = input_node(pertama,10);
-	pertama = input_node(pertama,18);
-	pertama = input_node(pertama,25);
-	pertama = input_node(pertama,40);
-	pertama = input_node(pertama,17);
-	pertama = input_node(pertama,35);
-	pertama = input_node(pertama,38);
-	pertama = input_node(pertama,50);
 
 	printf("\nSesudah Dilakukan Balancing.\n");
     printf("Post Order\t: ");
