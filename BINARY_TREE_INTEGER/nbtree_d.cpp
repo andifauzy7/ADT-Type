@@ -6,8 +6,7 @@
 void create_node(nbAddr *root){
     (*root) =(nbAddr) malloc(sizeof(ElmtTree));
     (*root)->info=NULL;
-    (*root)->left=NULL;
-    (*root)->right=NULL;
+    (*root)->left=(*root)->right=NULL;
 }
 
 void insert_node(nbAddr *root, nbType X){
@@ -50,8 +49,7 @@ nbAddr nbSearch(nbAddr root, nbType src){
 int nbDepth(nbAddr root){
     if (root == NULL)
         return 0;
-    else
-    {
+    else {
         int l_depth = nbDepth(root->left);
         int r_depth = nbDepth(root->right);
 
@@ -63,9 +61,6 @@ int nbDepth(nbAddr root){
     }
 }
 
-int bHeight(nbAddr root){
-    return nbDepth(root);
-}
 
 /* ---------------- TRAVERSAL Tree ---------------- */
 void nbPost(nbAddr root){
@@ -97,8 +92,7 @@ void nbLevelOrder(nbAddr root,int level){
         return;
     if (level == 1)
         printf("%d ", root->info);
-    else if (level > 1)
-    {
+    else if (level > 1){
         nbLevelOrder(root->left, level-1);
         nbLevelOrder(root->right, level-1);
     }
@@ -121,8 +115,7 @@ int max(int a, int b){
 nbAddr build_node(nbType value){
 	nbAddr node = (nbAddr)malloc(sizeof(ElmtTree));
 	node->info = value;
-	node->left = NULL;
-	node->right = NULL;
+	node->left = node->right = NULL;
 	node->height = 1;
 	return(node);
 }
@@ -137,15 +130,12 @@ nbAddr rotasi_kanan(nbAddr y){
 	nbAddr x = y->left;
 	nbAddr T2 = x->right;
 
-	// Perform rotation
 	x->right = y;
 	y->left = T2;
 
-	// Update heights
+    // Melakukan Update Height karena ada perubahan dari rotasi.
 	y->height = max(height_node(y->left), height_node(y->right))+1;
 	x->height = max(height_node(x->left), height_node(x->right))+1;
-
-	// Return new root
 	return x;
 }
 
@@ -153,15 +143,12 @@ nbAddr rotasi_kiri(nbAddr x){
 	nbAddr y = x->right;
 	nbAddr T2 = y->left;
 
-	// Perform rotation
 	y->left = x;
 	x->right = T2;
 
-	// Update heights
+	// Melakukan Update Height karena ada perubahan dari rotasi.
 	x->height = max(height_node(x->left), height_node(x->right))+1;
 	y->height = max(height_node(y->left), height_node(y->right))+1;
-
-	// Return new root
 	return y;
 }
 
@@ -172,27 +159,21 @@ int get_different(nbAddr N){
 }
 
 nbAddr input_node(nbAddr node, int value){
-	/* 1. Perform the normal BST insertion */
+	// Umumnya Proses Input sama seperti BST, Perbedaan pada modul ini yaitu melakukan otomatis Balancing setelah Input.
 	if (node == NULL)
 		return(build_node(value));
-
 	if (value < node->info)
 		node->left = input_node(node->left, value);
 	else if (value > node->info)
 		node->right = input_node(node->right, value);
-	else // Equal keys are not allowed in BST
+	else
 		return node;
 
-	/* 2. Update height of this ancestor node */
+	// Melakukan Update Height setelah proses input kedalam tree.
 	node->height = 1 + max(height_node(node->left),height_node(node->right));
 
-	/* 3. Get the balance factor of this ancestor
-		node to check whether this node became
-		unbalanced */
+	// Mendapatkan selisih antara node kiri dan kanan.
 	int balance = get_different(node);
-
-	// If this node becomes unbalanced, then
-	// there are 4 cases
 
 	// Left Left Case
 	if (balance > 1 && value < node->left->info)
@@ -203,19 +184,17 @@ nbAddr input_node(nbAddr node, int value){
 		return rotasi_kiri(node);
 
 	// Left Right Case
-	if (balance > 1 && value > node->left->info)
-	{
+	if (balance > 1 && value > node->left->info){
 		node->left = rotasi_kiri(node->left);
 		return rotasi_kanan(node);
 	}
 
 	// Right Left Case
-	if (balance < -1 && value < node->right->info)
-	{
+	if (balance < -1 && value < node->right->info){
 		node->right = rotasi_kanan(node->right);
 		return rotasi_kiri(node);
 	}
 
-	/* return the (unchanged) node pointer */
 	return node;
 }
+

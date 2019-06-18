@@ -21,40 +21,32 @@ typedef struct nbTreeNode{
 
 
 /* ---------------- Alokasi node baru Tree ---------------- */
-void create_node(nbAddr *root);
-//Alokasi untuk membuat node baru
+void create_node(nbAddr *root);             // Untuk BST Mode.
+nbAddr build_node(nbType value);            // Untuk AVL Mode.
 
 /* ---------------- Operasi-operasi Tree ---------------- */
-void insert_node(nbAddr *root, nbType X);
-// Menambah element pada node parent
+void insert_node(nbAddr *root, nbType X);   // Procedure untuk merubah Root.
+nbAddr input_node(nbAddr node, int value);  // Membuat Node dengan Rekursif Mode dengan auto Balancing.
 
-nbAddr value_minimum(nbAddr root);
-// Mencari Nilai Minimum untuk keperluan DELETE.
+nbAddr value_minimum(nbAddr root);          // Mencari Nilai Minimum untuk keperluan DELETE.
 
-nbAddr nbSearch(nbAddr root, nbType src);
-// Mencari node dengan info ttn dan mengembalikan addressnya
+nbAddr nbSearch(nbAddr root, nbType src);   // Mencari node dengan info ttn dan mengembalikan addressnya
 
 int nbDepth(nbAddr root);
-// Mengukur kedalaman suatu node dari root
-
-int bHeight(nbAddr root);
-// Mengukur Ketinggian suatu node
+int height_node(nbAddr root);               // Mengukur kedalaman suatu node dari root
 
 /* ---------------- TRAVERSAL Tree ---------------- */
-void nbPost(nbAddr root); // Postorder traversing
-void nbPre(nbAddr root); // Preorder traversing
-void nbIn(nbAddr root); // Inorder traversing
-void nbLevelOrder(nbAddr root,int level); // Levelorder traversing
+void nbPost(nbAddr root);                   // Postorder traversing
+void nbPre(nbAddr root);                    // Preorder traversing
+void nbIn(nbAddr root);                     // Inorder traversing
+void nbLevelOrder(nbAddr root,int level);   // Levelorder traversing
 void print_level(nbAddr root);
 
-/* Modul Pembantu Untuk Tree AVL */
+/* Modul Pembantu */
 
-int max(int a, int b);
-nbAddr build_node(nbType value);
-int height_node(nbAddr root);
-nbAddr rotasi_kanan(nbAddr y);
-nbAddr rotasi_kiri(nbAddr x);
-int get_different(nbAddr N);
-nbAddr input_node(nbAddr node, int value);
+int max(int a, int b);                      // Mencari nilai tertinggi dari 2 bilangan. (Untuk node kiri dan kanan)
+nbAddr rotasi_kanan(nbAddr y);              // Rotasi Tree ke kanan
+nbAddr rotasi_kiri(nbAddr x);               // Rotasi Tree ke kiri
+int get_different(nbAddr N);                // Mencari selisih antara 2 node kiri dan kanan untuk keperluan Balancing.
 
 #endif
