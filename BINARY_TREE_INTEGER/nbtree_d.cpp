@@ -200,70 +200,6 @@ nbAddr input_node(nbAddr node, int value){
 	return node;
 }
 
-<<<<<<< HEAD
-void preOrder(Node *root){
-	if(root != NULL)
-	{
-		printf("%d ", root->key);
-		preOrder(root->left);
-		preOrder(root->right);
-	}
-}
-
-void postOrder(Node *root){
-	if(root != NULL)
-	{
-		postOrder(root->left);
-		postOrder(root->right);
-		printf("%d ", root->key);
-	}
-}
-
-void inOrder(Node *root){
-	if(root != NULL)
-	{
-		inOrder(root->left);
-		printf("%d ", root->key);
-		inOrder(root->right);
-	}
-}
-
-void lvOrder(Node *root,int level){
-	if (root == NULL)
-        return;
-    if (level == 1)
-        printf("%d ", root->key);
-    else if (level > 1)
-    {
-        lvOrder(root->left, level-1);
-        lvOrder(root->right, level-1);
-    }
-}
-
-void print_level_avl(Node *root){
-    int i=0, depth=Depth_balance(root);
-    while(i<=depth){
-        lvOrder(root,i);
-        i++;
-    }
-}
-
-int Depth_balance(Node *root){
-    if (root == NULL)
-        return 0;
-    else
-    {
-        int l_depth = Depth_balance(root->left);
-        int r_depth = Depth_balance(root->right);
-
-        if (l_depth > r_depth){
-            return(l_depth + 1);
-        }else {
-            return(r_depth + 1);
-        }
-    }
-}
-
 nbAddr Delete(nbAddr root,int value)
 {
 	c=nbSearch(root,value);
@@ -314,5 +250,3 @@ nbAddr Delete(nbAddr root,int value)
 	return root;
 
 }
-=======
->>>>>>> 1c2dc56ffd9ae47c0e564b3b513b88109d140380
