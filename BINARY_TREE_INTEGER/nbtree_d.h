@@ -16,7 +16,7 @@ typedef int nbType;
 
 typedef struct nbTreeNode{
 	nbAddr left,right;
-	nbType info;
+	nbType info, height;
 }ElmtTree;
 
 struct nbTree{
@@ -34,15 +34,8 @@ void insert_node(nbAddr *root, nbType X);
 nbAddr value_minimum(nbAddr root);
 // Mencari Nilai Minimum untuk keperluan DELETE.
 
-nbAddr find_parents(nbAddr root, nbType value);
 nbAddr nbSearch(nbAddr root, nbType src);
 // Mencari node dengan info ttn dan mengembalikan addressnya
-
-void nbUpgrade(nbAddr *root);
-// Mengupgrade parent dari beberapa node. (digunakan pada proses penghapusan)
-
-void nbDelete(nbAddr *pDel, nbTree *pTree);
-// Menghapus node tertentu dan digantikan oleh fs dari node tsb
 
 int nbDepth(nbAddr root);
 // Mengukur kedalaman suatu node dari root
@@ -57,9 +50,14 @@ void nbIn(nbAddr root); // Inorder traversing
 void nbLevelOrder(nbAddr root,int level); // Levelorder traversing
 void print_level(nbAddr root);
 
-void delete_node(nbTree *pTree);
-/* Asumsi penghapusan node seperti silsilah kerajaan Inggris, dimana pewaris adalah son pertama,
-   Apabila son pertama tidak ada, maka digunakanlah NEXT BROTHER sebagai pewaris sementara. */
+/* Modul Pembantu */
 
+int nilai_max(int a, int b);
+int height(nbAddr *N);
+nbAddr Node_baru(int value);
+nbAddr rotasi_kanan(nbAddr *y);
+nbAddr rotasi_kiri(nbAddr *x);
+int selisih_balance(nbAddr N);
+nbAddr insert_avl(nbAddr *node, int value);
 
 #endif

@@ -6,6 +6,7 @@
 void create_node(nbAddr *root){
     (*root) =(nbAddr) malloc(sizeof(ElmtTree));
     (*root)->info=NULL;
+    (*root)->height=1;
     (*root)->left=NULL;
     (*root)->right=NULL;
 }
@@ -47,141 +48,6 @@ nbAddr nbSearch(nbAddr root, nbType src){
 	}
 }
 
-nbAddr find_parents(nbAddr root, nbType value){
-	if (root!=NULL){
-		if (root->left->info==value || root->right->info==value)
-			return root;
-		else{
-		    (value > root->info) ? find_parents(root->right,value) : find_parents(root->left,value);
-		}
-	}
-	else{
-		return NULL;
-	}
-}
-/*
-void nbUpgrade(nbAddr *root){
-	nbAddr temp;
-	temp=(*root)->nb;
-	if ((*root)->fs==NULL){
-        (*root)->fs=temp;
-	} else {
-        (*root)->fs->nb=temp;
-	}
-	while(temp!=NULL){
-		temp->parent=*root;
-		temp=temp->nb;
-	}
-}
-
-void nbDelete(nbAddr *pDel, nbTree *pTree){
-	nbAddr pCur;
-	pCur=*pDel;
-
-	// Jika yang dihapus adalah Root dan tidak memiliki son.
-	if (pCur==pTree->root && pCur->fs==NULL){
-		pTree->root=NULL;
-		return;
-    // Proses langsung keluar dari modul agar tidak memproses perintah dibawahnya.
-	}
-
-	while(pCur->fs!=NULL){
-		pCur=pCur->fs;
-	}
-
-	if (pCur->parent!=NULL){
-		pCur->parent->fs=pCur->fs;
-	}
-	if (pCur->fs!=NULL){
-		pCur->fs->parent=pCur->parent;
-	}
-	if (pCur->parent==NULL){
-		pTree->root=pCur;
-	}
-}
-
-void delete_node(nbTree *pTree){
-	nbAddr pdel, temp, sonbaru, ujungbrother;
-	nbType value;
-    printf("\nNode yg di delete : ");
-	scanf("%d", &value);
-
-	if(pTree->root != NULL){
-	    pdel=nbSearch(pTree->root,value);
-		if(pdel->fs != NULL){
-		    // Jika yang dihapus memiliki son. Menandai First-an dari node tersebut.
-            temp=pdel->fs;
-            if(pdel->parent==NULL){
-                pTree->root=temp;
-                temp->parent=NULL;
-            } else {
-            temp->parent=pdel->parent;
-            // Jika anak pertama sama dengan anak pertama dari kakek
-            if(temp->parent->fs==pdel){
-                pdel->parent->fs=temp;
-            }
-            }
-            // Menyambungkan saudara yang lebih tua dari PDEL ke TEMP (Apabila Ada)
-            if(nbSearchbefore(pTree->root, pdel)!=NULL){
-                nbSearchbefore(pTree->root, pdel)->nb=temp;
-            }
-            // Menyimpan address brother temp, nanti akan dijadikan FS.
-            if(temp->nb!=NULL){
-                sonbaru=temp->nb;
-                if(temp->fs==NULL){
-                    temp->fs=sonbaru;
-                } else {
-                    ujungbrother=temp->fs;
-                    while(ujungbrother->nb!=NULL){
-                        ujungbrother=ujungbrother->nb;
-                    }
-                    ujungbrother->nb=sonbaru;
-                }
-                temp->nb=NULL;
-                sonbaru->parent=temp;
-            }
-            // Menyambungkan saudara yang lebik muda dari PDEL ke TEMP (Apabila Ada)
-            if(pdel->nb!=NULL){
-                temp->nb=pdel->nb;
-                pdel->nb=NULL;
-            }
-            pdel->fs=NULL;
-            while(sonbaru->nb!=NULL){
-                sonbaru->parent=temp;
-                sonbaru=sonbaru->nb;
-            }
-		}
-		else if(pdel->fs==NULL){
-            // Menyimpan Parent dari Node yang akan dihapus.
-			temp=pdel->parent;
-			if(temp->fs==pdel){
-			    // Apabila yang didelete adalah anak pertama.
-			    // FS atau Anak pertama dari Node diubah ke NextBrother.
-				temp->fs=pdel->nb;
-			}
-			else{
-				temp=temp->fs;
-				// Memindahkan temp ke anak pertama dari suatu node.
-				while(temp->nb != NULL ){
-					if(temp->nb==pdel){
-                        // Memindahkan pointer ke anak sesudah sesudahnya.
-						temp->nb = temp->nb->nb;
-					}
-					else{
-						temp=temp->nb;
-					}
-				}
-			}
-		}
-		free(pdel);
-	}
-	else{
-		printf("Tree Kosong!");
-	}
-}
-
-*/
-
 int nbDepth(nbAddr root){
     if (root == NULL)
         return 0;
@@ -197,6 +63,7 @@ int nbDepth(nbAddr root){
         }
     }
 }
+
 int bHeight(nbAddr root){
     return nbDepth(root);
 }
@@ -246,3 +113,109 @@ void print_level(nbAddr root){
     }
 }
 
+/* Modul Pembantu */
+int nilai_max(int a, int b){
+	return (a > b)? a : b;
+}
+
+int height(nbAddr *N){
+	if (N == NULL)
+		return 0;
+	return (*N)->height;
+}
+
+nbAddr Node_baru(int value){
+    nbAddr node;
+	node = (nbAddr) malloc(sizeof(ElmtTree));
+	node->info = value;
+	node->left = NULL;
+	node->right = NULL;
+	node->height = 1;
+	return node;
+}
+
+nbAddr rotasi_kanan(nbAddr *y){
+	nbAddr x = (*y)->left;
+	nbAddr T2 = x->right;
+
+	// Perform rotation
+	x->right = (*y);
+	(*y)->left = T2;
+
+	// Update heights
+	(*y)->height = nilai_max(height(&(*y)->left), height(&(*y)->right))+1;
+	x->height = nilai_max(height(&x->left), height(&x->right))+1;
+
+	return x;
+}
+
+nbAddr rotasi_kiri(nbAddr *x){
+	nbAddr y = (*x)->right;
+	nbAddr T2 = y->left;
+
+	// Perform rotation
+	y->left = (*x);
+	(*x)->right = T2;
+
+	// Update heights
+	(*x)->height = nilai_max(height(&(*x)->left), height(&(*x)->right))+1;
+	y->height = nilai_max(height(&y->left), height(&y->right))+1;
+
+	// Return new root
+	return y;
+}
+
+int selisih_balance(nbAddr N){
+	if (N == NULL)
+		return 0;
+	return height(&N->left) - height(&N->right);
+}
+
+nbAddr insert_avl(nbAddr *node, int value){
+	/* 1. Perform the normal BST insertion */
+	if ((*node) == NULL)
+		return(Node_baru(value));
+
+	if (value < (*node)->info)
+		(*node)->left = insert_avl(&(*node)->left, value);
+	else if (value > (*node)->info)
+		(*node)->right = insert_avl(&(*node)->right, value);
+	else // Equal keys are not allowed in BST
+		return (*node);
+
+	/* 2. Update height of this ancestor node */
+	(*node)->height = 1 + nilai_max(height(&(*node)->left),height(&(*node)->right));
+
+	/* 3. Get the balance factor of this ancestor
+		node to check whether this node became
+		unbalanced */
+	int balance = selisih_balance(*node);
+
+	// If this node becomes unbalanced, then
+	// there are 4 cases
+
+	// Left Left Case
+	if (balance > 1 && value < (*node)->left->info)
+		return rotasi_kanan(&(*node));
+
+	// Right Right Case
+	if (balance < -1 && value > (*node)->right->info)
+		return rotasi_kiri(&(*node));
+
+	// Left Right Case
+	if (balance > 1 && value > (*node)->left->info)
+	{
+		(*node)->left = rotasi_kiri(&(*node)->left);
+		return rotasi_kanan(&(*node));
+	}
+
+	// Right Left Case
+	if (balance < -1 && value < (*node)->right->info)
+	{
+		(*node)->right = rotasi_kanan(&(*node)->right);
+		return rotasi_kiri(&(*node));
+	}
+
+	/* return the (unchanged) node pointer */
+	return (*node);
+}
