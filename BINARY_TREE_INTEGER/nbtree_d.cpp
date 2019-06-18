@@ -6,7 +6,6 @@
 void create_node(nbAddr *root){
     (*root) =(nbAddr) malloc(sizeof(ElmtTree));
     (*root)->info=NULL;
-    (*root)->height=1;
     (*root)->left=NULL;
     (*root)->right=NULL;
 }
@@ -113,109 +112,177 @@ void print_level(nbAddr root){
     }
 }
 
-/* Modul Pembantu */
-int nilai_max(int a, int b){
+/* Modul Pembantu Untuk AVL Tree */
+
+
+int height(struct Node *N){
+	if (N == NULL)
+		return 0;
+	return N->height;
+}
+
+int max(int a, int b){
 	return (a > b)? a : b;
 }
 
-int height(nbAddr *N){
-	if (N == NULL)
-		return 0;
-	return (*N)->height;
-}
-
-nbAddr Node_baru(int value){
-    nbAddr node;
-	node = (nbAddr) malloc(sizeof(ElmtTree));
-	node->info = value;
+struct Node* newNode(int key){
+	struct Node* node = (struct Node*)
+						malloc(sizeof(struct Node));
+	node->key = key;
 	node->left = NULL;
 	node->right = NULL;
-	node->height = 1;
-	return node;
+	node->height = 1; // new node is initially added at leaf
+	return(node);
 }
 
-nbAddr rotasi_kanan(nbAddr *y){
-	nbAddr x = (*y)->left;
-	nbAddr T2 = x->right;
+struct Node *rightRotate(struct Node *y){
+	struct Node *x = y->left;
+	struct Node *T2 = x->right;
 
 	// Perform rotation
-	x->right = (*y);
-	(*y)->left = T2;
+	x->right = y;
+	y->left = T2;
 
 	// Update heights
-	(*y)->height = nilai_max(height(&(*y)->left), height(&(*y)->right))+1;
-	x->height = nilai_max(height(&x->left), height(&x->right))+1;
+	y->height = max(height(y->left), height(y->right))+1;
+	x->height = max(height(x->left), height(x->right))+1;
 
+	// Return new root
 	return x;
 }
 
-nbAddr rotasi_kiri(nbAddr *x){
-	nbAddr y = (*x)->right;
-	nbAddr T2 = y->left;
+struct Node *leftRotate(struct Node *x){
+	struct Node *y = x->right;
+	struct Node *T2 = y->left;
 
 	// Perform rotation
-	y->left = (*x);
-	(*x)->right = T2;
+	y->left = x;
+	x->right = T2;
 
 	// Update heights
-	(*x)->height = nilai_max(height(&(*x)->left), height(&(*x)->right))+1;
-	y->height = nilai_max(height(&y->left), height(&y->right))+1;
+	x->height = max(height(x->left), height(x->right))+1;
+	y->height = max(height(y->left), height(y->right))+1;
 
 	// Return new root
 	return y;
 }
 
-int selisih_balance(nbAddr N){
+int getBalance(struct Node *N){
 	if (N == NULL)
 		return 0;
-	return height(&N->left) - height(&N->right);
+	return height(N->left) - height(N->right);
 }
 
-nbAddr insert_avl(nbAddr *node, int value){
+struct Node* insert(struct Node* node, int key){
 	/* 1. Perform the normal BST insertion */
-	if ((*node) == NULL)
-		return(Node_baru(value));
+	if (node == NULL)
+		return(newNode(key));
 
-	if (value < (*node)->info)
-		(*node)->left = insert_avl(&(*node)->left, value);
-	else if (value > (*node)->info)
-		(*node)->right = insert_avl(&(*node)->right, value);
+	if (key < node->key)
+		node->left = insert(node->left, key);
+	else if (key > node->key)
+		node->right = insert(node->right, key);
 	else // Equal keys are not allowed in BST
-		return (*node);
+		return node;
 
 	/* 2. Update height of this ancestor node */
-	(*node)->height = 1 + nilai_max(height(&(*node)->left),height(&(*node)->right));
+	node->height = 1 + max(height(node->left),
+						height(node->right));
 
 	/* 3. Get the balance factor of this ancestor
 		node to check whether this node became
 		unbalanced */
-	int balance = selisih_balance(*node);
+	int balance = getBalance(node);
 
 	// If this node becomes unbalanced, then
 	// there are 4 cases
 
 	// Left Left Case
-	if (balance > 1 && value < (*node)->left->info)
-		return rotasi_kanan(&(*node));
+	if (balance > 1 && key < node->left->key)
+		return rightRotate(node);
 
 	// Right Right Case
-	if (balance < -1 && value > (*node)->right->info)
-		return rotasi_kiri(&(*node));
+	if (balance < -1 && key > node->right->key)
+		return leftRotate(node);
 
 	// Left Right Case
-	if (balance > 1 && value > (*node)->left->info)
+	if (balance > 1 && key > node->left->key)
 	{
-		(*node)->left = rotasi_kiri(&(*node)->left);
-		return rotasi_kanan(&(*node));
+		node->left = leftRotate(node->left);
+		return rightRotate(node);
 	}
 
 	// Right Left Case
-	if (balance < -1 && value < (*node)->right->info)
+	if (balance < -1 && key < node->right->key)
 	{
-		(*node)->right = rotasi_kanan(&(*node)->right);
-		return rotasi_kiri(&(*node));
+		node->right = rightRotate(node->right);
+		return leftRotate(node);
 	}
 
 	/* return the (unchanged) node pointer */
-	return (*node);
+	return node;
 }
+
+void preOrder(Node *root){
+	if(root != NULL)
+	{
+		printf("%d ", root->key);
+		preOrder(root->left);
+		preOrder(root->right);
+	}
+}
+
+void postOrder(Node *root){
+	if(root != NULL)
+	{
+		postOrder(root->left);
+		postOrder(root->right);
+		printf("%d ", root->key);
+	}
+}
+
+void inOrder(Node *root){
+	if(root != NULL)
+	{
+		inOrder(root->left);
+		printf("%d ", root->key);
+		inOrder(root->right);
+	}
+}
+
+void lvOrder(Node *root,int level){
+	if (root == NULL)
+        return;
+    if (level == 1)
+        printf("%d ", root->key);
+    else if (level > 1)
+    {
+        lvOrder(root->left, level-1);
+        lvOrder(root->right, level-1);
+    }
+}
+
+void print_level_avl(Node *root){
+    int i=0, depth=Depth_balance(root);
+    while(i<=depth){
+        lvOrder(root,i);
+        i++;
+    }
+}
+
+int Depth_balance(Node *root){
+    if (root == NULL)
+        return 0;
+    else
+    {
+        int l_depth = Depth_balance(root->left);
+        int r_depth = Depth_balance(root->right);
+
+        if (l_depth > r_depth){
+            return(l_depth + 1);
+        }else {
+            return(r_depth + 1);
+        }
+    }
+}
+

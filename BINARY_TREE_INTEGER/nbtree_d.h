@@ -14,14 +14,18 @@ Last Updt : 25-5-2011
 typedef struct nbTreeNode *nbAddr;
 typedef int nbType;
 
+struct Node{
+	int key;
+	struct Node *left;
+	struct Node *right;
+	int height;
+};
+
 typedef struct nbTreeNode{
 	nbAddr left,right;
-	nbType info, height;
+	nbType info;
 }ElmtTree;
 
-struct nbTree{
-	nbAddr root;
-};
 
 /* ---------------- Alokasi node baru Tree ---------------- */
 void create_node(nbAddr *root);
@@ -50,14 +54,20 @@ void nbIn(nbAddr root); // Inorder traversing
 void nbLevelOrder(nbAddr root,int level); // Levelorder traversing
 void print_level(nbAddr root);
 
-/* Modul Pembantu */
+/* Modul Pembantu Untuk Tree AVL */
 
-int nilai_max(int a, int b);
-int height(nbAddr *N);
-nbAddr Node_baru(int value);
-nbAddr rotasi_kanan(nbAddr *y);
-nbAddr rotasi_kiri(nbAddr *x);
-int selisih_balance(nbAddr N);
-nbAddr insert_avl(nbAddr *node, int value);
+int max(int a, int b);
+int height(struct Node *N);
+struct Node* newNode(int key);
+struct Node *rightRotate(struct Node *y);
+struct Node *leftRotate(struct Node *x);
+int getBalance(struct Node *N);
+struct Node* insert(struct Node* node, int key);
+void preOrder(Node *root);
+void postOrder(Node *root);
+void inOrder(Node *root);
+void lvOrder(Node *root,int level);
+int Depth_balance(Node *root);
+void print_level_avl(Node *root);
 
 #endif
