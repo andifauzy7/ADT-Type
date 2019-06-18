@@ -26,6 +26,14 @@ void insert_node(nbAddr *root, nbType X){
     }
 }
 
+nbAddr value_minimum(nbAddr root){
+    nbAddr temp=root;
+    while(temp && temp->left!=NULL){
+        temp=temp->left;
+    }
+    return temp;
+}
+
 nbAddr nbSearch(nbAddr root, nbType src){
 	if (root!=NULL){
 		if (root->info==src)
@@ -39,8 +47,18 @@ nbAddr nbSearch(nbAddr root, nbType src){
 	}
 }
 
-
-
+nbAddr find_parents(nbAddr root, nbType value){
+	if (root!=NULL){
+		if (root->left->info==value || root->right->info==value)
+			return root;
+		else{
+		    (value > root->info) ? find_parents(root->right,value) : find_parents(root->left,value);
+		}
+	}
+	else{
+		return NULL;
+	}
+}
 /*
 void nbUpgrade(nbAddr *root){
 	nbAddr temp;

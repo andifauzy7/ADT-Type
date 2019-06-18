@@ -31,6 +31,10 @@ void create_node(nbAddr *root);
 void insert_node(nbAddr *root, nbType X);
 // Menambah element pada node parent
 
+nbAddr value_minimum(nbAddr root);
+// Mencari Nilai Minimum untuk keperluan DELETE.
+
+nbAddr find_parents(nbAddr root, nbType value);
 nbAddr nbSearch(nbAddr root, nbType src);
 // Mencari node dengan info ttn dan mengembalikan addressnya
 
