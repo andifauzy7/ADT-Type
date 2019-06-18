@@ -47,6 +47,9 @@ void nbDelete(nbAddr *pDel, nbTree *pTree);
 int nbDepth(nbAddr root);
 // Mengukur kedalaman suatu node dari root
 
+int bHeight(nbAddr root);
+// Mengukur Ketinggian suatu node
+
 /* ---------------- TRAVERSAL Tree ---------------- */
 void nbPost(nbAddr root); // Postorder traversing
 void nbPre(nbAddr root); // Preorder traversing

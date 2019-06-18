@@ -197,6 +197,9 @@ int nbDepth(nbAddr root){
         }
     }
 }
+int bHeight(nbAddr root){
+    return nbDepth(root);
+}
 
 /* ---------------- TRAVERSAL Tree ---------------- */
 void nbPost(nbAddr root){
