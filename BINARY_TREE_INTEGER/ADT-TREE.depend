@@ -46,7 +46,7 @@
 	"nbtree_d.h"
 	"boolean.h"
 
-1560861102 source:d:\adt_type\binary_tree_integer\nbtree_d.cpp
+1561872428 source:d:\adt_type\binary_tree_integer\nbtree_d.cpp
 	<limits.h>
 	<malloc.h>
 	"nbtree_d.h"
@@ -60,7 +60,7 @@
 
 1540955430 d:\adt_type\binary_tree_integer\boolean.h
 
-1560861937 source:d:\adt_type\binary_tree_integer\main.cpp
+1560864345 source:d:\adt_type\binary_tree_integer\main.cpp
 	"nbtree_d.h"
 
 1560848519 source:c:\users\user\documents\adt-type\binary_tree_integer\main.cpp

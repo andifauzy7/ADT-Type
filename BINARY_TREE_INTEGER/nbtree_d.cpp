@@ -36,11 +36,16 @@ nbAddr value_minimum(nbAddr root){
 }
 
 nbAddr nbSearch(nbAddr root, nbType src){
+	nbAddr nSrc;
 	if (root!=NULL){
-		if (root->info==src)
+		if (root->info == src)
 			return root;
 		else{
-		    (src > root->info) ? nbSearch(root->right,src) : nbSearch(root->left,src);
+			nSrc=nbSearch(root->left,src);
+			if (nSrc==NULL)
+				return nbSearch(root->right,src);
+			else
+				return nSrc;
 		}
 	}
 	else{
